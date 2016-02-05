@@ -68,6 +68,7 @@ public class RobotMap {
         driveSubsystemRobotDrive41.setMaxOutput(1.0);
         driveSubsystemRobotDrive41.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         driveSubsystemRobotDrive41.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        
         shooterLeftShooterMotor = new Talon(4);
         LiveWindow.addActuator("Shooter", "LeftShooterMotor", (Talon) shooterLeftShooterMotor);
         
