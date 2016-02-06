@@ -48,10 +48,10 @@ public class Shooter extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
     //Method to spin up shooter wheels
-    public void spinShooterWheels(){
+    public void spinShooterWheels(double speed){
     	
-    	RobotMap.shooterLeftShooterMotor.set(1);
-    	RobotMap.shooterrightShooterMotor.set(-1);
+    	RobotMap.shooterLeftShooterMotor.set(speed);
+    	RobotMap.shooterrightShooterMotor.set(-speed);
     	
     	
     }

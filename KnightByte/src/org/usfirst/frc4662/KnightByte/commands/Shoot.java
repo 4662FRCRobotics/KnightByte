@@ -38,20 +38,22 @@ public class Shoot extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setTimeout(5);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.spinShooterWheels();
+    	Robot.shooter.spinShooterWheels(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.shooter.spinShooterWheels(0);
     }
 
     // Called when another command which requires one or more of the same
