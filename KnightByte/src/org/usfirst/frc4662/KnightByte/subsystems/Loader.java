@@ -49,9 +49,9 @@ public class Loader extends Subsystem {
         // setDefaultCommand(new MySpecialCommand());
     }
     // Spin loader wheels
-    public void spinLoaderWheels(){
+    public void spinLoaderWheels(double speed){
     	
-    	RobotMap.loaderLoaderWheels.set(.5);
+    	RobotMap.loaderLoaderWheels.set(speed);
     	
     	
     	

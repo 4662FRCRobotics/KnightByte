@@ -74,7 +74,7 @@ public class OI {
         shooterTrigger.whenPressed(new Shoot());
         loadButton = new JoystickButton(operatorJoystick, 2);
         loadButton.whileHeld(new LoaderWheels());
-
+        loadButton.whenReleased(new LoaderWheelStop());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
