@@ -99,7 +99,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
-        NIVision.IMAQdxStartAcquisition(RobotMap.cameraSession);
+        NIVision.IMAQdxStartAcquisition(RobotMap.cameraSessionCurrent);
         RobotMap.cameraRect = new NIVision.Rect();
         RobotMap.cameraRect.height = 200;
         RobotMap.cameraRect.width = 200;
@@ -113,8 +113,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        NIVision.IMAQdxGrab(RobotMap.cameraSession, RobotMap.frame, 1);
-        NIVision.imaqDrawShapeOnImage(RobotMap.frame, RobotMap.frame, RobotMap.cameraRect, DrawMode.PAINT_INVERT, ShapeMode.SHAPE_RECT, 0.0f);
+        NIVision.IMAQdxGrab(RobotMap.cameraSessionCurrent, RobotMap.frame, 1);
+        if (RobotMap.cameraSessionCurrent == RobotMap.cameraSessionShooter){
+        	NIVision.imaqDrawShapeOnImage(RobotMap.frame, RobotMap.frame, RobotMap.cameraRect, DrawMode.PAINT_INVERT, ShapeMode.SHAPE_RECT, 0.0f);
+        }
+        		
+        
     //    NIVision.imaqDrawLineOnImage(dest, source, mode, start, end, newPixelValue);
         CameraServer.getInstance().setImage(RobotMap.frame);
     }
