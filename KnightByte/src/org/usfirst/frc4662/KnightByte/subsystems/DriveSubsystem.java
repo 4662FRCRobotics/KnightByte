@@ -59,6 +59,10 @@ public class DriveSubsystem extends Subsystem {
     	RobotMap.driveSubsystemRobotDrive41.tankDrive(stick1.getY(), stick2.getY());
     	SmartDashboard.putNumber("stick1", stick1.getY());
     	SmartDashboard.putNumber("stick2", stick2.getY());
+    }   
+    
+    public void driveTankAutonomous (double leftValue, double rightValue) {
+    	RobotMap.driveSubsystemRobotDrive41.tankDrive(leftValue, rightValue);;
     }
 }
 
