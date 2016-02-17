@@ -11,12 +11,17 @@
 
 package org.usfirst.frc4662.KnightByte.subsystems;
 
+import java.util.Comparator;
+
 //import org.usfirst.frc4662.Tank2016.RobotMap;
 //import org.usfirst.frc4662.Tank2016.commands.*;
 
 //import java.nio.ByteBuffer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+//import org.usfirst.frc.team4662.robot.Robot.Scores;
+import org.usfirst.frc4662.KnightByte.subsystems.Vision.ParticleReport;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.VisionException;
@@ -31,7 +36,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class VisionByte extends Subsystem {
+public class Vision extends Subsystem {
 
 	public static String kDefaultCameraName = "cam0";
 
@@ -76,11 +81,11 @@ public class VisionByte extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-  public VisionByte() {
+  public Vision() {
     openCamera();
   }
 
-  public VisionByte(String name) {
+  public Vision(String name) {
     m_name = name;
     openCamera();
   }
@@ -241,5 +246,52 @@ public class VisionByte extends Subsystem {
     
 // need toggle cameras to display - or can this???  NO this is a camera.
 // need target calculations
+	   
+//End CAMERA SETTINGS
+//Begin IMAGE MANIPULATION
+    public class ParticleReport implements Comparator<ParticleReport>, Comparable<ParticleReport>{
+			double PercentAreaToImageArea;
+			double Area;
+			double BoundingRectLeft;
+			double BoundingRectTop;
+			double BoundingRectRight;
+			double BoundingRectBottom;
+			  
+			   public int compareTo(ParticleReport r)
+			{
+				return (int)(r.Area - this.Area);
+			}
+			
+			public int compare(ParticleReport r1, ParticleReport r2)
+			{
+				return (int)(r1.Area - r2.Area);
+			}
+		};
+		
+		//Structure to represent the scores for the various tests used for target identification
+		public class Scores {
+			double Area;
+			double Aspect;
+		};
+
+		//Images
+		//first frame is m_frame		
+		//int cameraSession; is m_id in this class 
+		
+		Image modFrame;
+
+		//Constants
+		NIVision.Range TOTE_HUE_RANGE = new NIVision.Range(101, 64);	//Default hue range for yellow tote
+		NIVision.Range TOTE_SAT_RANGE = new NIVision.Range(88, 255);	//Default saturation range for yellow tote
+		NIVision.Range TOTE_VAL_RANGE = new NIVision.Range(134, 255);	//Default value range for yellow tote
+		double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
+//		double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
+//		double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
+		double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
+		double VIEW_ANGLE = 60.0; //View angle for camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
+		NIVision.ParticleFilterCriteria2 criteria[] = new NIVision.ParticleFilterCriteria2[1];
+		NIVision.ParticleFilterOptions2 filterOptions = new NIVision.ParticleFilterOptions2(0,0,1,1);
+		Scores scores = new Scores();
+
 }
 
