@@ -85,7 +85,7 @@ public class  AutoMoveChassis extends Command {
     	//                                       ^^^^^ this is wrong HL 2.10.16
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    // Make  this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return isTimedOut();
     }

@@ -74,7 +74,7 @@ public class AutoCommandGroup extends CommandGroup {
         		break;
         		
         	default:
-        		strFileName = "/home/lvuser/Autonomous/DefaultAttackPattern.txt";
+        		strFileName = "/home/lvuser/Autonomous/ReachDefense.txt";
         	}
         	SmartDashboard.putString("AutoFile", strFileName);
         	String autoCommandList = readFile(strFileName);
@@ -92,7 +92,7 @@ public class AutoCommandGroup extends CommandGroup {
 	    				dSpeed = Double.valueOf(autoArray[i + 1]);
 	    				SmartDashboard.putNumber("Speed", dSpeed);
 	    				break;
-	    			case "north": 
+	    			case "forward": 
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.NORTH, iDistance, dSpeed));

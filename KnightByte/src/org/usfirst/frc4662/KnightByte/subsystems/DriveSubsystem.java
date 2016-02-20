@@ -61,8 +61,18 @@ public class DriveSubsystem extends Subsystem {
     	SmartDashboard.putNumber("stick2", stick2.getY());
     }   
     
+    public void driveArcadeWithJoystick (Joystick stick1, Joystick stick2) {
+    	RobotMap.driveSubsystemRobotDrive41.arcadeDrive(stick1.getY(), stick1.getX());
+    	SmartDashboard.putNumber("stick1", stick1.getY());
+    	SmartDashboard.putNumber("stick1", stick1.getX());
+    }   
+    
     public void driveTankAutonomous (double leftValue, double rightValue) {
-    	RobotMap.driveSubsystemRobotDrive41.tankDrive(leftValue, rightValue);;
+    	RobotMap.driveSubsystemRobotDrive41.tankDrive(leftValue, rightValue);
+    }
+    
+    public void driveArcadeAutonomous (double moveValue, double rotateValue) {
+    	RobotMap.driveSubsystemRobotDrive41.arcadeDrive(moveValue, rotateValue);
     }
 }
 
