@@ -77,6 +77,7 @@ public class Vision extends Subsystem {
 	  private int m_exposureValue = -1;
 	  private int m_brightness = 50;
 	  private double m_distance = -1;
+	  private double m_angle = -361;
 //	  private boolean m_needSettingsUpdate = true;
 	  
 	  private Image m_frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
@@ -366,12 +367,14 @@ public class Vision extends Subsystem {
 					scores.Area = AreaScore(particles.elementAt(particleIndex), imageArea, particleArea);
 					SmartDashboard.putNumber("Area", scores.Area);
 					isTarget = scores.Aspect > SCORE_MIN && scores.Area > SCORE_MIN;
-				SmartDashboard.putBoolean("isTarget", isTarget);
+					SmartDashboard.putBoolean("isTarget", isTarget);
 					if (isTarget == true){
 						m_distance = computeDistance(modFrame,particles.elementAt(particleIndex));
 						SmartDashboard.putNumber("distance" ,m_distance);
+						m_angle = computeAngle(modFrame, particles.elementAt(particleIndex));
+						SmartDashboard.putNumber("angle", m_angle);
+						return isTarget;
 					}
-					return isTarget;
 				}
 			}
 			return isTarget;
@@ -436,9 +439,16 @@ public class Vision extends Subsystem {
 		
 			double targetWidth;
 			targetWidth = 20.0;
-			double opposite = ((((report.BoundingRectRight - report.BoundingRectLeft)/ 2) + report.BoundingRectLeft) - (m_width / 2)) * (report.BoundingRectRight - report.BoundingRectLeft) / targetWidth;
-
-			return  Math.asin(opposite/ m_distance);
+			double targetPixels = (report.BoundingRectRight - report.BoundingRectLeft);
+			//SmartDashboard.putNumber("targetPixels", targetPixels);
+			double targetCenter = ((targetPixels/ 2) + report.BoundingRectLeft);
+			//SmartDashboard.putNumber("targetCenter", targetCenter);
+			double pixelsPerInch = ((targetPixels) / targetWidth);
+			//SmartDashboard.putNumber("pixelsPerInch", pixelsPerInch);
+			double opposite = ((targetCenter - (m_width / 2)) / pixelsPerInch) / 12;
+			//SmartDashboard.putNumber("opposite", opposite);
+			
+			return  Math.toDegrees(Math.asin(opposite/ m_distance));
 		}
 }
 
