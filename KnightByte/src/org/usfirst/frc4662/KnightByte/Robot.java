@@ -81,6 +81,7 @@ public class Robot extends IterativeRobot {
         shooterCam = new Vision("cam0");
         loaderCam = new Vision("cam1");
         currCam = shooterCam;
+        shooterCam.InitImaging();
     }
 
     /**

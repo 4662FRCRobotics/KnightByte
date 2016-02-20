@@ -12,6 +12,7 @@
 package org.usfirst.frc4662.KnightByte.subsystems;
 
 import java.util.Comparator;
+import java.util.Vector;
 
 //import org.usfirst.frc4662.Tank2016.RobotMap;
 //import org.usfirst.frc4662.Tank2016.commands.*;
@@ -31,6 +32,7 @@ import com.ni.vision.NIVision.ImageType;
 import static edu.wpi.first.wpilibj.Timer.delay;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -74,6 +76,7 @@ public class Vision extends Subsystem {
 	  private String m_exposure = "auto";
 	  private int m_exposureValue = -1;
 	  private int m_brightness = 50;
+	  private double m_distance = -1;
 //	  private boolean m_needSettingsUpdate = true;
 	  
 	  private Image m_frame = NIVision.imaqCreateImage(ImageType.IMAGE_RGB, 0);
@@ -241,6 +244,12 @@ public class Vision extends Subsystem {
     }    
     public Image getImage() {
          NIVision.IMAQdxGrab(m_id, m_frame, 1);
+         
+         if (m_targetMode){
+        	 FilterImage(20, 12, 240, 80);
+         }
+         
+  
         return m_frame;
     }
     
@@ -279,6 +288,7 @@ public class Vision extends Subsystem {
 		//int cameraSession; is m_id in this class 
 		
 		Image modFrame;
+		int imaqError;
 
 		//Constants
 		NIVision.Range TOTE_HUE_RANGE = new NIVision.Range(101, 64);	//Default hue range for yellow tote
@@ -288,10 +298,147 @@ public class Vision extends Subsystem {
 //		double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 //		double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
 		double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
-		double VIEW_ANGLE = 60.0; //View angle for camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
+		double VIEW_ANGLE = 50.0; //View angle for camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
 		NIVision.ParticleFilterCriteria2 criteria[] = new NIVision.ParticleFilterCriteria2[1];
 		NIVision.ParticleFilterOptions2 filterOptions = new NIVision.ParticleFilterOptions2(0,0,1,1);
 		Scores scores = new Scores();
 
+		public void InitImaging() {
+			modFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
+			criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA, AREA_MINIMUM, 100.0, 0, 0);
+			
+			/*SmartDashboard.putNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
+			SmartDashboard.putNumber("Tote hue max", TOTE_HUE_RANGE.maxValue);
+			SmartDashboard.putNumber("Tote sat min", TOTE_SAT_RANGE.minValue);
+			SmartDashboard.putNumber("Tote sat max", TOTE_SAT_RANGE.maxValue);
+			SmartDashboard.putNumber("Tote val min", TOTE_VAL_RANGE.minValue);
+			SmartDashboard.putNumber("Tote val max", TOTE_VAL_RANGE.maxValue);
+			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);*/
+		}
+		
+		public boolean FilterImage(double width, double height, double imageArea, double particleArea) {
+			//Update threshold values from SmartDashboard. For performance reasons it is recommended to remove this after calibration is finished.
+			boolean isTarget = false;
+			/*TOTE_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
+			TOTE_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote hue max", TOTE_HUE_RANGE.maxValue);
+			TOTE_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Tote sat min", TOTE_SAT_RANGE.minValue);
+			TOTE_SAT_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote sat max", TOTE_SAT_RANGE.maxValue);
+			TOTE_VAL_RANGE.minValue = (int)SmartDashboard.getNumber("Tote val min", TOTE_VAL_RANGE.minValue);
+			TOTE_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote val max", TOTE_VAL_RANGE.maxValue);*/
+
+			//Threshold the image looking for Retro-tape
+			NIVision.imaqColorThreshold(modFrame, m_frame, 255, NIVision.ColorMode.HSV, TOTE_HUE_RANGE, TOTE_SAT_RANGE, TOTE_VAL_RANGE);
+
+			//Send particle count to dashboard
+			int numParticles = NIVision.imaqCountParticles(modFrame, 1);
+			SmartDashboard.putNumber("Masked particles", numParticles);
+
+			//filter out small particles
+			float areaMin = (float)SmartDashboard.getNumber("Area min %", AREA_MINIMUM);
+			criteria[0].lower = areaMin;
+			imaqError = NIVision.imaqParticleFilter4(modFrame, modFrame, criteria, filterOptions, null);
+
+			//Send particle count after filtering to dashboard
+			numParticles = NIVision.imaqCountParticles(modFrame, 1);
+			SmartDashboard.putNumber("Filtered particles", numParticles);
+			
+			if(numParticles > 0) {
+				//Measure particles and sort by particle size
+				Vector<ParticleReport> particles = new Vector<ParticleReport>();
+				for(int particleIndex = 0; particleIndex < numParticles; particleIndex++) {
+					ParticleReport par = new ParticleReport();
+					par.PercentAreaToImageArea = NIVision.imaqMeasureParticle(modFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA);
+					par.Area = NIVision.imaqMeasureParticle(modFrame, particleIndex, 0, NIVision.MeasurementType.MT_AREA);
+					par.BoundingRectTop = NIVision.imaqMeasureParticle(modFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_TOP);
+					par.BoundingRectLeft = NIVision.imaqMeasureParticle(modFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_LEFT);
+					par.BoundingRectBottom = NIVision.imaqMeasureParticle(modFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_BOTTOM);
+					par.BoundingRectRight = NIVision.imaqMeasureParticle(modFrame, particleIndex, 0, NIVision.MeasurementType.MT_BOUNDING_RECT_RIGHT);
+					particles.add(par);
+				}
+				particles.sort(null);
+				
+				for(int particleIndex = 0; particleIndex < numParticles && isTarget == false; particleIndex++) {
+					//This example only scores the largest particle. Extending to score all particles and choosing the desired one is left as an exercise
+					//for the reader. Note that this scores and reports information about a single particle (single L shaped target). To get accurate information 
+					//about the location of the tape (not just the distance) you will need to correlate two adjacent targets in order to find the true center of the tote.
+					scores.Aspect = AspectScore(particles.elementAt(particleIndex), width, height);
+					SmartDashboard.putNumber("Aspect", scores.Aspect);
+					scores.Area = AreaScore(particles.elementAt(particleIndex), imageArea, particleArea);
+					SmartDashboard.putNumber("Area", scores.Area);
+					isTarget = scores.Aspect > SCORE_MIN && scores.Area > SCORE_MIN;
+				SmartDashboard.putBoolean("isTarget", isTarget);
+					if (isTarget == true){
+						m_distance = computeDistance(modFrame,particles.elementAt(particleIndex));
+						SmartDashboard.putNumber("distance" ,m_distance);
+					}
+					return isTarget;
+				}
+			}
+			return isTarget;
+		}
+		
+		static boolean CompareParticleSizes(ParticleReport particle1, ParticleReport particle2) {
+			//we want descending sort order
+			return particle1.PercentAreaToImageArea > particle2.PercentAreaToImageArea;
+		}
+
+		/**
+		 * Converts a ratio with ideal value of 1 to a score. The resulting function is piecewise
+		 * linear going from (0,0) to (1,100) to (2,0) and is 0 for all inputs outside the range 0-2
+		 */
+		double ratioToScore(double ratio) {
+			return (Math.max(0, Math.min(100*(1-Math.abs(1-ratio)), 100)));
+		}
+
+		double AreaScore(ParticleReport report, double imageArea, double particleArea) {
+			double boundingArea = (report.BoundingRectBottom - report.BoundingRectTop) * (report.BoundingRectRight - report.BoundingRectLeft);
+			//Tape is 7" edge so 49" bounding rect. With 2" wide tape it covers 24" of the rect.
+			//modified for a piece of tape 2x15 for test
+			return ratioToScore((imageArea/particleArea)*report.Area/boundingArea);
+		}
+
+		/**
+		 * Method to score if the aspect ratio of the particle appears to match the retro-reflective target. 
+		 * OLD Target is 7"x7" so aspect should be 1
+		 * Target is 20*12 
+		 */
+		double AspectScore(ParticleReport report, double width, double height) {
+			return ratioToScore( width / height / ((report.BoundingRectRight-report.BoundingRectLeft)/(report.BoundingRectBottom-report.BoundingRectTop)));
+		}
+
+		/**
+		 * Computes the estimated distance to a target using the width of the particle in the image. For more information and graphics
+		 * showing the math behind this approach see the Vision Processing section of the ScreenStepsLive documentation.
+		 *
+		 * @param image The image to use for measuring the particle estimated rectangle
+		 * @param report The Particle Analysis Report for the particle
+		 * @param isLong Boolean indicating if the target is believed to be the long side of the tape
+		 * @return The estimated distance to the target in feet.
+		 */
+		double computeDistance (Image image, ParticleReport report) {
+			double normalizedWidth, targetWidth;
+			//NIVision.GetImageSizeResult size;
+
+			//size = NIVision.imaqGetImageSize(image);
+			//normalizedWidth = 2*(report.BoundingRectRight - report.BoundingRectLeft)/size.width;
+			normalizedWidth = 2*(report.BoundingRectRight - report.BoundingRectLeft)/m_width;
+			targetWidth = 20.0;
+
+			return  targetWidth/(normalizedWidth*12*Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+		}
+		
+//Target Center = (Target Right - Target Left) / 2 + Target Left
+//Pixels/Inch = (Target Right - Target left) / Target Width [20 inches]
+//opposite = Target Center - Image Center [160] * Pixels/Inch
+//Sin(Target Angle) = opposite / Distance
+//Angle to turn = arcSin(Target Angle)
+		double computeAngle (Image image, ParticleReport report) {
+		
+			double targetWidth;
+			targetWidth = 20.0;
+			double opposite = ((((report.BoundingRectRight - report.BoundingRectLeft)/ 2) + report.BoundingRectLeft) - (m_width / 2)) * (report.BoundingRectRight - report.BoundingRectLeft) / targetWidth;
+
+			return  Math.asin(opposite/ m_distance);
+		}
 }
 
