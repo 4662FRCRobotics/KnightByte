@@ -246,9 +246,9 @@ public class Vision extends Subsystem {
     public Image getImage() {
          NIVision.IMAQdxGrab(m_id, m_frame, 1);
          
-         if (m_targetMode){
-        	 FilterImage(20, 12, 240, 80);
-         }
+//         if (m_targetMode){
+//        	 FilterImage(20, 12, 240, 80);
+//         }
          
   
         return m_frame;
@@ -308,24 +308,26 @@ public class Vision extends Subsystem {
 			modFrame = NIVision.imaqCreateImage(ImageType.IMAGE_U8, 0);
 			criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA, AREA_MINIMUM, 100.0, 0, 0);
 			
-			/*SmartDashboard.putNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
+/*			SmartDashboard.putNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
 			SmartDashboard.putNumber("Tote hue max", TOTE_HUE_RANGE.maxValue);
 			SmartDashboard.putNumber("Tote sat min", TOTE_SAT_RANGE.minValue);
 			SmartDashboard.putNumber("Tote sat max", TOTE_SAT_RANGE.maxValue);
 			SmartDashboard.putNumber("Tote val min", TOTE_VAL_RANGE.minValue);
 			SmartDashboard.putNumber("Tote val max", TOTE_VAL_RANGE.maxValue);
-			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);*/
+			SmartDashboard.putNumber("Area min %", AREA_MINIMUM);
+*/
 		}
 		
 		public boolean FilterImage(double width, double height, double imageArea, double particleArea) {
 			//Update threshold values from SmartDashboard. For performance reasons it is recommended to remove this after calibration is finished.
 			boolean isTarget = false;
-			/*TOTE_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
+/*			TOTE_HUE_RANGE.minValue = (int)SmartDashboard.getNumber("Tote hue min", TOTE_HUE_RANGE.minValue);
 			TOTE_HUE_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote hue max", TOTE_HUE_RANGE.maxValue);
 			TOTE_SAT_RANGE.minValue = (int)SmartDashboard.getNumber("Tote sat min", TOTE_SAT_RANGE.minValue);
 			TOTE_SAT_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote sat max", TOTE_SAT_RANGE.maxValue);
 			TOTE_VAL_RANGE.minValue = (int)SmartDashboard.getNumber("Tote val min", TOTE_VAL_RANGE.minValue);
-			TOTE_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote val max", TOTE_VAL_RANGE.maxValue);*/
+			TOTE_VAL_RANGE.maxValue = (int)SmartDashboard.getNumber("Tote val max", TOTE_VAL_RANGE.maxValue);
+*/
 
 			//Threshold the image looking for Retro-tape
 			NIVision.imaqColorThreshold(modFrame, m_frame, 255, NIVision.ColorMode.HSV, TOTE_HUE_RANGE, TOTE_SAT_RANGE, TOTE_VAL_RANGE);
@@ -369,15 +371,23 @@ public class Vision extends Subsystem {
 					isTarget = scores.Aspect > SCORE_MIN && scores.Area > SCORE_MIN;
 					SmartDashboard.putBoolean("isTarget", isTarget);
 					if (isTarget == true){
-						m_distance = computeDistance(modFrame,particles.elementAt(particleIndex));
+						m_distance = computeDistance(particles.elementAt(particleIndex));
 						SmartDashboard.putNumber("distance" ,m_distance);
-						m_angle = computeAngle(modFrame, particles.elementAt(particleIndex));
+						m_angle = computeAngle(particles.elementAt(particleIndex));
 						SmartDashboard.putNumber("angle", m_angle);
 						return isTarget;
 					}
 				}
 			}
 			return isTarget;
+		}
+		
+		public double GetDistance() {
+			return m_distance;
+		}
+		
+		public double GetAngle() {
+			return m_angle;
 		}
 		
 		static boolean CompareParticleSizes(ParticleReport particle1, ParticleReport particle2) {
@@ -418,7 +428,7 @@ public class Vision extends Subsystem {
 		 * @param isLong Boolean indicating if the target is believed to be the long side of the tape
 		 * @return The estimated distance to the target in feet.
 		 */
-		double computeDistance (Image image, ParticleReport report) {
+		double computeDistance (ParticleReport report) {
 			double normalizedWidth, targetWidth;
 			//NIVision.GetImageSizeResult size;
 
@@ -435,7 +445,7 @@ public class Vision extends Subsystem {
 //opposite = Target Center - Image Center [160] * Pixels/Inch
 //Sin(Target Angle) = opposite / Distance
 //Angle to turn = arcSin(Target Angle)
-		double computeAngle (Image image, ParticleReport report) {
+		double computeAngle (ParticleReport report) {
 		
 			double targetWidth;
 			targetWidth = 20.0;

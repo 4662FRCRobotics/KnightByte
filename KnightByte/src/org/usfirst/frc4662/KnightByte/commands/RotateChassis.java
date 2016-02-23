@@ -21,22 +21,23 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ArcadeNumber extends Command {
+public class RotateChassis extends Command {
 	double m_dTargetAngle;
-	double m_dOffset = 0;
+	double m_dOffsetAngle = 0;
 	double m_RotateSpeed;
 	AnalogGyro gyro = RobotMap.rotationalGyro;
 	
-    public ArcadeNumber() {
+    public RotateChassis(double dOffsetAngle) {
+    	m_dOffsetAngle = dOffsetAngle;
         requires(Robot.driveSubsystem);
     }
     
     protected void initialize() {
-    	m_dTargetAngle = gyro.getAngle() + m_dOffset;
+    	m_dTargetAngle = gyro.getAngle() + m_dOffsetAngle;
     	//Have to add the target offset from the camera targeting to the gyro reading, not sure how to pass the value into the command
-    	if (m_dOffset < 0) {
+    	if (m_dOffsetAngle < 0) {
     		m_RotateSpeed = 0.15;
-    	} else if (m_dOffset > 0){
+    	} else if (m_dOffsetAngle > 0){
     		m_RotateSpeed = -0.15;
     	} else {
     		m_RotateSpeed = 0;
@@ -50,11 +51,11 @@ public class ArcadeNumber extends Command {
     protected boolean isFinished() {
         boolean bReturnValue = false;
         double currentAngle = gyro.getAngle();
-        if (m_dOffset < 0 && currentAngle <= m_dTargetAngle) {
+        if (m_dOffsetAngle < 0 && currentAngle <= m_dTargetAngle) {
         	bReturnValue = true;
-        } else if (m_dOffset > 0 && currentAngle >= m_dTargetAngle) {
+        } else if (m_dOffsetAngle > 0 && currentAngle >= m_dTargetAngle) {
         	bReturnValue = true;
-        } else if (m_dOffset == 0) {
+        } else if (m_dOffsetAngle == 0) {
         	bReturnValue = true;
         }
         return bReturnValue;
