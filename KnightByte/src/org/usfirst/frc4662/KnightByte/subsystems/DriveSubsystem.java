@@ -56,7 +56,7 @@ public class DriveSubsystem extends Subsystem {
     }
     
     public void driveTankWithJoystick (Joystick stick1, Joystick stick2) {
-    	RobotMap.driveSubsystemRobotDrive41.tankDrive(stick1.getY(), stick2.getY());
+    	RobotMap.driveSubsystemRobotDrive41.tankDrive(-stick1.getY(), -stick2.getY());
     	SmartDashboard.putNumber("stick1", stick1.getY());
     	SmartDashboard.putNumber("stick2", stick2.getY());
     }   

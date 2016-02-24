@@ -24,7 +24,7 @@ public class ShooterUpDown extends Command {
 	
 
     //VARIABLE_DECLARATIONS
-    public ShooterUpDown(double distance) {
+    public ShooterUpDown() {
 
     //Requires
         requires(Robot.shooter);
