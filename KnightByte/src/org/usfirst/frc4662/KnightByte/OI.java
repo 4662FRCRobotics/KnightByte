@@ -70,8 +70,8 @@ public class OI {
         joystick1 = new Joystick(0);
         operatorJoystick = new Joystick(2);
         
- //       targetShoot = new JoystickButton(operatorJoystick, 1);
- //       targetShoot.whenPressed(new LocateTarget());
+        targetShoot = new JoystickButton(operatorJoystick, 1);
+        targetShoot.whenPressed(new LocateTarget());
         shooterTrigger = new JoystickButton(operatorJoystick, 3);
         shooterTrigger.whenPressed(new Shoot());
         loadButton = new JoystickButton(operatorJoystick, 2);
@@ -85,7 +85,7 @@ public class OI {
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("Shoot", new Shoot());
- //       SmartDashboard.putData("LocateTarget", new LocateTarget());
+        SmartDashboard.putData("LocateTarget", new LocateTarget());
         SmartDashboard.putData("ShooterUpDown", new ShooterUpDown());
         SmartDashboard.putData("ShootingCommandGroup", new ShootingCommandGroup());
         SmartDashboard.putData("RotateToTarget", new RotateToTarget());
