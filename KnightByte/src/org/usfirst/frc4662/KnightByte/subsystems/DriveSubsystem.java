@@ -63,22 +63,24 @@ public class DriveSubsystem extends Subsystem {
     	RobotMap.driveSubsystemRobotDrive41.tankDrive(-stick1.getY(), -stick2.getY());
     	SmartDashboard.putNumber("stick1", stick1.getY());
     	SmartDashboard.putNumber("stick2", stick2.getY());
-    	SmartDashboard.putNumber("Drive Distance", getDistance());
+    	logDashboard();
     }   
     
     public void driveArcadeWithJoystick (Joystick stick1) {
     	RobotMap.driveSubsystemRobotDrive41.arcadeDrive(-stick1.getY(), -stick1.getX());
     	SmartDashboard.putNumber("stick1Y", stick1.getY());
     	SmartDashboard.putNumber("stick1X", stick1.getX());
-    	SmartDashboard.putNumber("Drive Distance", getDistance());
+    	logDashboard();
     }   
     
     public void driveTankAutonomous (double leftValue, double rightValue) {
     	RobotMap.driveSubsystemRobotDrive41.tankDrive(leftValue, rightValue);
+    	logDashboard();
     }
     
     public void driveArcadeAutonomous (double moveValue, double rotateValue) {
     	RobotMap.driveSubsystemRobotDrive41.arcadeDrive(moveValue, rotateValue);
+    	logDashboard();
     }
     
    
@@ -97,6 +99,13 @@ public class DriveSubsystem extends Subsystem {
     
     public  void driveReset () {
     	driveEncoder.reset();
+    }
+    
+    private void logDashboard () {
+    	SmartDashboard.putNumber("Drive Distance", getDistance());
+    	SmartDashboard.putNumber("Drive Count", getCount());
+    	SmartDashboard.putBoolean("Drive Direction", getDirection());
+    	
     }
 }
 

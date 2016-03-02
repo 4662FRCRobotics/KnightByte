@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveDistance extends Command {
 	private double m_Speed;
 	private double m_Distance;
-	private boolean m_Direction;
 	
    
     // Called just before this Command runs the first time
@@ -45,6 +44,11 @@ public class DriveDistance extends Command {
     	}
     	Robot.driveSubsystem.driveReset();
     }
+   
+   protected void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
@@ -67,12 +71,6 @@ public class DriveDistance extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	
 }
