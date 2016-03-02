@@ -81,8 +81,22 @@ public class DriveSubsystem extends Subsystem {
     	RobotMap.driveSubsystemRobotDrive41.arcadeDrive(moveValue, rotateValue);
     }
     
+   
+    
     public double getDistance () {
     	return (double) driveEncoder.getDistance();
+    }
+    
+    public boolean getDirection () {
+    	return (boolean) driveEncoder.getDirection();
+    }
+    
+    public double getCount () {
+    	return (double) driveEncoder.get();
+    }
+    
+    public  void driveReset () {
+    	driveEncoder.reset();
     }
 }
 

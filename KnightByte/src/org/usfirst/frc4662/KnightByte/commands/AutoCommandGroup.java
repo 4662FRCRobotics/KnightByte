@@ -95,25 +95,19 @@ public class AutoCommandGroup extends CommandGroup {
 	    			case "forward": 
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
-	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.NORTH, iDistance, dSpeed));
+	    				addSequential (new DriveDistance(dSpeed, iDistance, true));
 	    				//addSequential (new RotateRight90());
 	    				break;
-	    			case "south":
+	    			case "rotate":
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.SOUTH, iDistance, dSpeed));
 	    				//addSequential (new RotateRight90());
 	    				break;
-	    			case "east":
+	    			case "locatetarget":
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.EAST, iDistance, dSpeed));
-	    				//addSequential (new RotateRight90());
-	    				break;
-	    			case "west":
-	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
-	    	    		SmartDashboard.putNumber("Distance", iDistance);
-	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.WEST, iDistance, dSpeed));
 	    				//addSequential (new RotateRight90());
 	    				break;
 	    			

@@ -70,7 +70,7 @@ public class Vision extends Subsystem {
 	  private int m_width = 320;
 	  private int m_height = 240;
 //	  private int m_fps = 30;
-	  private int m_fps = 8; //per 2014 white paper
+	  private int m_fps = 15; //per 2014 white paper
 	  private String m_whiteBalance = "auto";
 	  private int m_whiteBalanceValue = -1;
 	  private String m_exposure = "auto";
@@ -216,6 +216,7 @@ public class Vision extends Subsystem {
  
 //  set up driver viewable camera
     public void driverCamera(){
+    	m_fps = 15;
     	m_whiteBalance = "auto";
   	  	m_whiteBalanceValue = -1;
   	  	m_exposure = "auto";
@@ -227,6 +228,7 @@ public class Vision extends Subsystem {
     
 //  set up target viewable camera
     public void targetCamera(){
+    	m_fps = 8;
    		m_whiteBalance = "manual";
   		m_whiteBalanceValue = 2800;
    		m_exposure = "manual";
