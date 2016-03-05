@@ -14,6 +14,8 @@ package org.usfirst.frc4662.KnightByte.commands;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc4662.KnightByte.Robot;
 import org.usfirst.frc4662.KnightByte.RobotMap;
 
@@ -34,11 +36,12 @@ public class RotateChassis extends Command {
     
     protected void initialize() {
     	m_dTargetAngle = gyro.getAngle() + m_dOffsetAngle;
+    	SmartDashboard.putNumber("Gyro Angle Init", gyro.getAngle());
     	//Have to add the target offset from the camera targeting to the gyro reading, not sure how to pass the value into the command
     	if (m_dOffsetAngle < 0) {
-    		m_RotateSpeed = 0.15;
+    		m_RotateSpeed = .5;
     	} else if (m_dOffsetAngle > 0){
-    		m_RotateSpeed = -0.15;
+    		m_RotateSpeed = -.5;
     	} else {
     		m_RotateSpeed = 0;
     	}
@@ -46,6 +49,7 @@ public class RotateChassis extends Command {
 
     protected void execute() {
     	Robot.driveSubsystem.driveArcadeAutonomous(0,m_RotateSpeed);
+    	 SmartDashboard.putNumber("Gyro Angle Execute", gyro.getAngle());
     }
 
     protected boolean isFinished() {
@@ -62,6 +66,7 @@ public class RotateChassis extends Command {
     }
 
     protected void end() {
+    	Robot.driveSubsystem.driveArcadeAutonomous(0, 0);
     }
 
     protected void interrupted() {

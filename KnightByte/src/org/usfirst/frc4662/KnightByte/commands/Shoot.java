@@ -22,6 +22,7 @@ public class Shoot extends Command {
 //VARIABLE_DECLARATIONS
 	long mStartTime;
 	long mCurrentTime;
+	double mSpinSpeed;
 //CONSTRUCTORS
     public Shoot() {
     	
@@ -36,15 +37,20 @@ public class Shoot extends Command {
     protected void initialize() {
     	setTimeout(3);
     	mStartTime = System.nanoTime();
+    	mSpinSpeed = .9;
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.spinShooterWheels(1);
+    	Robot.shooter.spinShooterWheels(mSpinSpeed);
     	mCurrentTime = System.nanoTime();
-    	if(mCurrentTime - mStartTime > 1000000000){
-    		Robot.loader.spinLoaderWheels(-0.2);
+ //     	if(mCurrentTime - mStartTime > 500000000){
+ //   		mSpinSpeed = 1;
+ //   	}
+    	if(mCurrentTime - mStartTime > 1500000000){
+   
+    		Robot.loader.spinLoaderWheels(1);
     	}
     	
     }

@@ -93,6 +93,10 @@ public class DriveSubsystem extends Subsystem {
     	return (boolean) driveEncoder.getDirection();
     }
     
+    public double getRaw() {
+    	return (double) driveEncoder.getRaw();
+    }
+    
     public double getCount () {
     	return (double) driveEncoder.get();
     }
@@ -105,7 +109,7 @@ public class DriveSubsystem extends Subsystem {
     	SmartDashboard.putNumber("Drive Distance", getDistance());
     	SmartDashboard.putNumber("Drive Count", getCount());
     	SmartDashboard.putBoolean("Drive Direction", getDirection());
-    	
+    	SmartDashboard.putNumber("Raw Encoder", getRaw());
     }
 }
 

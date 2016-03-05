@@ -12,6 +12,7 @@
 package org.usfirst.frc4662.KnightByte.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc4662.KnightByte.OI;
 import org.usfirst.frc4662.KnightByte.Robot;
@@ -23,7 +24,7 @@ import org.usfirst.frc4662.KnightByte.RobotMap;
 public class ShooterUpDown extends Command {
 	
 
-    //VARIABLE_DECLARATIONS
+ //BEGIN VARIABLE_DECLARATIONS
     public ShooterUpDown() {
 
     //Requires
@@ -31,14 +32,24 @@ public class ShooterUpDown extends Command {
 
     
     }
+ //END VARIABLE_DECLARATIONS
     private double calculateTimeout(double dDistance){
     	//Calculate Timeout at later date 
-    	return 0;
+    	int iIndex = (int)(dDistance);
+    	if (iIndex > 30) {
+    		iIndex = 30;
+    	}
+    	double shooterAngle = RobotMap.shooterAngleArray[iIndex];
+    	if (shooterAngle < 0) {
+    		shooterAngle = 0;
+    	}
+    	return shooterAngle;
     }
     // Called just before this Command runs the first time
     protected void initialize() {
+    	SmartDashboard.putNumber("Shooter Start Time", System.nanoTime());
     	double distance = Robot.shooterCam.GetDistance();
-    	setTimeout(.5);
+    	setTimeout(calculateTimeout(distance));
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -48,13 +59,13 @@ public class ShooterUpDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	
-    	return isTimedOut();
+    	return (isTimedOut() || (RobotMap.ShooterTop.get() == false));
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.shooter.upDownShooter(0);
+    	SmartDashboard.putNumber("Shooter End Time", System.nanoTime());
     }
 
     // Called when another command which requires one or more of the same

@@ -25,8 +25,9 @@ public class ShootingCommandGroup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addSequential(new RotateToTarget());
-    	addSequential(new ShooterUpDown());
+    	/*addSequential(new ShooterUpDown());
     	addSequential(new Shoot());
     	addSequential(new ShooterPark());
-    }
+    	 */
+    	}
 }

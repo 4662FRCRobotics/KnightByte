@@ -55,6 +55,10 @@ public class CameraToggle extends Command {
     		Robot.currCam.stopCapture();
     		Robot.currCam = Robot.loaderCam;
     		Robot.currCam.startCapture();
+    	}else {
+       		Robot.currCam.stopCapture();
+    		Robot.currCam = Robot.shooterCam;
+    		Robot.currCam.startCapture();
     	}
    	
     }

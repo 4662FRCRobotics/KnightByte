@@ -228,14 +228,16 @@ public class Vision extends Subsystem {
     
 //  set up target viewable camera
     public void targetCamera(){
-    	m_fps = 8;
-   		m_whiteBalance = "manual";
-  		m_whiteBalanceValue = 2800;
-   		m_exposure = "manual";
-   		m_exposureValue = 10;
-   		m_brightness = 30;	
-   		updateSettings();
-		m_targetMode = true;
+    	if (m_targetMode == false){
+    		m_fps = 8;
+    		m_whiteBalance = "manual";
+    		m_whiteBalanceValue = 2800;
+    		m_exposure = "manual";
+    		m_exposureValue = 10;
+    		m_brightness = 30;	
+   			updateSettings();
+   			m_targetMode = true;
+    	}
      }
 //  set up target viewable camera
     public void toggleTargetMode(){
@@ -300,7 +302,7 @@ public class Vision extends Subsystem {
 		double AREA_MINIMUM = 0.5; //Default Area minimum for particle as a percentage of total image area
 //		double LONG_RATIO = 2.22; //Tote long side = 26.9 / Tote height = 12.1 = 2.22
 //		double SHORT_RATIO = 1.4; //Tote short side = 16.9 / Tote height = 12.1 = 1.4
-		double SCORE_MIN = 75.0;  //Minimum score to be considered a tote
+		double SCORE_MIN = 60.0;  //Minimum score to be considered a tote
 		double VIEW_ANGLE = 50.0; //View angle for camera, set to Axis m1011 by default, 64 for m1013, 51.7 for 206, 52 for HD3000 square, 60 for HD3000 640x480
 		NIVision.ParticleFilterCriteria2 criteria[] = new NIVision.ParticleFilterCriteria2[1];
 		NIVision.ParticleFilterOptions2 filterOptions = new NIVision.ParticleFilterOptions2(0,0,1,1);

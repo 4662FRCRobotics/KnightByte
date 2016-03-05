@@ -45,6 +45,7 @@ public class LocateTarget extends Command {
     	}
 		Robot.shooterCam.targetCamera();
 		Robot.shooterCam.startCapture();
+		Robot.shooterCam.getImage();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -54,14 +55,15 @@ public class LocateTarget extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	boolean bReturnValue = false;
     	m_checkTarget = Robot.shooterCam.FilterImage(20, 12, 240, 80);
     	if (m_checkTarget == true){
-    		return true;
+    		bReturnValue = true;
     	}
     	else if(isTimedOut() == true) {
-    		return true;
+    		bReturnValue = true;
     	}
-   		return false;
+   		return bReturnValue;
     }
 
     // Called once after isFinished returns true

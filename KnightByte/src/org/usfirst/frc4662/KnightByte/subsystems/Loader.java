@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -57,8 +58,14 @@ public class Loader extends Subsystem {
     	
     }
  public void moveArmInOut(Joystick operatorJoystick){
-    	
-    	RobotMap.loaderLoaderArm.set(operatorJoystick.getY());
+     double loaderArmSpeed = (operatorJoystick.getY() * 0.65);
+     if (loaderArmSpeed > 0 && (RobotMap.LoaderPark.get() == false)) {
+    	 loaderArmSpeed = 0;
+     } else if (loaderArmSpeed < 0 && (RobotMap.LoaderOut.get() == false)) {
+    	 loaderArmSpeed = 0;
+     }
+     SmartDashboard.putNumber("Loader Arm Speed", loaderArmSpeed);
+	 RobotMap.loaderLoaderArm.set(loaderArmSpeed);
     	
  
     }

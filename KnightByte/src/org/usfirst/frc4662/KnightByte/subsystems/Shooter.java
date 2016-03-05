@@ -49,8 +49,8 @@ public class Shooter extends Subsystem {
     }
     //Method to spin up shooter wheels
     public void spinShooterWheels(double speed){
-    	
-    	leftShooterMotor.set(-speed);
+    	//change to "-speed" for left motor
+    	leftShooterMotor.set(speed);
     	rightShooterMotor.set(speed);
     	
     	
