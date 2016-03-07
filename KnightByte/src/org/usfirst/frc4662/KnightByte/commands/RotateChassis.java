@@ -28,13 +28,22 @@ public class RotateChassis extends Command {
 	double m_dOffsetAngle = 0;
 	double m_RotateSpeed;
 	AnalogGyro gyro = RobotMap.rotationalGyro;
+	boolean m_haveAngle = false;
 	
     public RotateChassis(double dOffsetAngle) {
     	m_dOffsetAngle = dOffsetAngle;
         requires(Robot.driveSubsystem);
+        m_haveAngle = true;
+    }
+    
+    public RotateChassis() {
+        requires(Robot.driveSubsystem);
     }
     
     protected void initialize() {
+    	if (m_haveAngle == false){
+    		m_dOffsetAngle = Robot.shooterCam.GetAngle();
+    	}
     	m_dTargetAngle = gyro.getAngle() + m_dOffsetAngle;
     	SmartDashboard.putNumber("Gyro Angle Init", gyro.getAngle());
     	//Have to add the target offset from the camera targeting to the gyro reading, not sure how to pass the value into the command

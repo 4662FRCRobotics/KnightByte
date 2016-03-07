@@ -229,7 +229,7 @@ public class Vision extends Subsystem {
 //  set up target viewable camera
     public void targetCamera(){
     	if (m_targetMode == false){
-    		m_fps = 8;
+    		m_fps = 12;
     		m_whiteBalance = "manual";
     		m_whiteBalanceValue = 2800;
     		m_exposure = "manual";

@@ -30,7 +30,7 @@ public class Shoot extends Command {
 
 //REQUIRES
         requires(Robot.shooter);
-        requires(Robot.loader);
+        requires(Robot.loaderWheelSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -50,7 +50,7 @@ public class Shoot extends Command {
  //   	}
     	if(mCurrentTime - mStartTime > 1500000000){
    
-    		Robot.loader.spinLoaderWheels(1);
+    		Robot.loaderWheelSubsystem.spinLoaderWheels(1);
     	}
     	
     }
@@ -63,7 +63,7 @@ public class Shoot extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.shooter.spinShooterWheels(0);
-    	Robot.loader.spinLoaderWheels(0);
+    	Robot.loaderWheelSubsystem.spinLoaderWheels(0);
     }
 
     // Called when another command which requires one or more of the same

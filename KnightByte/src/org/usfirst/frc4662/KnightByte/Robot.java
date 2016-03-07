@@ -44,8 +44,8 @@ public class Robot extends IterativeRobot {
     // BEGIN DECLARATIONS
     public static DriveSubsystem driveSubsystem;
     public static Shooter shooter;
-    public static Loader loader;
-    
+    public static LoaderWheelSubsystem loaderWheelSubsystem;
+    public static LoaderArms loaderArms;
 
     
     public static Vision shooterCam;
@@ -66,8 +66,8 @@ public class Robot extends IterativeRobot {
  // BEGIN CONSTRUCTORS
         driveSubsystem = new DriveSubsystem();
         shooter = new Shooter();
-        loader = new Loader();
-       
+        loaderWheelSubsystem = new LoaderWheelSubsystem();
+        loaderArms = new LoaderArms();
 
     
         shooterCam = new Vision("cam0");

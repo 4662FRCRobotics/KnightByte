@@ -69,9 +69,10 @@ public class LocateTarget extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	if (m_checkTarget == true){
-    		Scheduler.getInstance().add(new ShootingCommandGroup());
-    	}
-    	else {
+    		Command commandGroup = (Command) new ShootingCommandGroup();
+    		commandGroup.start();
+    		//Scheduler.getInstance().add(new ShootingCommandGroup());
+    	} else {
     		
     	}
     }

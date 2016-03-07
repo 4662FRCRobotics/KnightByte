@@ -1,6 +1,9 @@
 package org.usfirst.frc4662.KnightByte.commands;
 
+import org.usfirst.frc4662.KnightByte.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
@@ -24,10 +27,11 @@ public class ShootingCommandGroup extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new RotateToTarget());
-    	/*addSequential(new ShooterUpDown());
+    	//addSequential(new LocateTarget());
+    	addSequential(new RotateChassis());
+    	addSequential(new ShooterUpDown());
+    	addSequential(new LoaderArmPark());		//Need to break top three into separate command group
     	addSequential(new Shoot());
     	addSequential(new ShooterPark());
-    	 */
     	}
 }

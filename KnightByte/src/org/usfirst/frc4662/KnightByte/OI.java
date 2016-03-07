@@ -89,7 +89,6 @@ public class OI {
         SmartDashboard.putData("ShooterUpDown", new ShooterUpDown());
         SmartDashboard.putData("ShooterPark", new ShooterPark());
         SmartDashboard.putData("ShootingCommandGroup", new ShootingCommandGroup());
-        SmartDashboard.putData("RotateToTarget", new RotateToTarget());
         SmartDashboard.putData("Rotate Chassis", new RotateChassis(10));
         SmartDashboard.putData("Shooter Move to Top", new ShooterUpDown());
         

@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveDistance extends Command {
 	private double m_Speed;
 	private double m_Distance;
+	private boolean m_bUseEncoder = true;
 	
    
     // Called just before this Command runs the first time
@@ -31,23 +32,32 @@ public class DriveDistance extends Command {
     	//validation below as appropriate
     	//if greater than 1 or less than -1 then make speed 1
     	//if less than 0 and greater than -1 then multiply by -1
-    	if (speed>1 || speed<-1) {
+    	if (speed > 1 || speed < -1) {
     		m_Speed = 1;
-    	} else if (speed<0 && speed>=-1) {
-    		m_Speed = speed*-1;
+    	} else if (speed < 0 && speed >= -1) {
+    		m_Speed = speed * -1;
     	} else {
     		m_Speed = speed;
     	}
     	m_Distance = distance;
     	if (bForwardDirection) {
-    		m_Speed = m_Speed*-1;
+    		m_Speed = m_Speed * -1;
     	}
-    	Robot.driveSubsystem.driveReset();
     }
+   
+   public DriveDistance() {
+	   
+   }
    
    protected void initialize() {
 		// TODO Auto-generated method stub
-		
+	   if (m_bUseEncoder == true) {
+		   Robot.driveSubsystem.driveReset();
+	   } else {
+		   double dVelocity = 120 * m_Speed;		//Determined by testing to have full velocity of 120 in/sec, multiplied by power (speed) sent to motor to determine the distance traveled-BG 3/6
+		   setTimeout(m_Distance / dVelocity);
+	   }
+	   
 	}
 
     // Called repeatedly when this Command is scheduled to run
@@ -57,9 +67,14 @@ public class DriveDistance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//we're finished when distance traveled >= total distance
-    	return (Math.abs(Robot.driveSubsystem.getDistance()) >= m_Distance);
-    	
+    	//we're finished when distance traveled >= total distance or the timeout is reached
+    	boolean bFinished = false;
+    	if (m_bUseEncoder == true) {
+    		bFinished = (Math.abs(Robot.driveSubsystem.getDistance()) >= m_Distance);
+    	} else {
+    		bFinished = isTimedOut();
+    	}
+    	return bFinished;
     }
 
     // Called once after isFinished returns true

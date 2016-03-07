@@ -24,7 +24,7 @@ import org.usfirst.frc4662.KnightByte.RobotMap;
 public class ShooterUpDown extends Command {
 	
 
- //BEGIN VARIABLE_DECLARATIONS
+ 
     public ShooterUpDown() {
 
     //Requires
@@ -32,6 +32,9 @@ public class ShooterUpDown extends Command {
 
     
     }
+  //BEGIN VARIABLE_DECLARATIONS
+    
+    
  //END VARIABLE_DECLARATIONS
     private double calculateTimeout(double dDistance){
     	//Calculate Timeout at later date 
@@ -47,9 +50,13 @@ public class ShooterUpDown extends Command {
     }
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putNumber("Shooter Start Time", System.nanoTime());
+    	
     	double distance = Robot.shooterCam.GetDistance();
-    	setTimeout(calculateTimeout(distance));
+    	double timeout = calculateTimeout(distance);
+    	//SmartDashboard.putNumber("ShooterTimeout", timeout);
+    	//SmartDashboard.putNumber("Shooter Start Time", System.nanoTime());
+    	setTimeout(timeout);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -59,13 +66,17 @@ public class ShooterUpDown extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return (isTimedOut() || (RobotMap.ShooterTop.get() == false));
-    }
+  //  	return (isTimedOut() || (RobotMap.ShooterTop.get() == false));
+    	boolean isTimedOut = isTimedOut();
+    	//SmartDashboard.putBoolean("Is Timed Out", isTimedOut);
+    	//SmartDashboard.putNumber("Shooter isFinished Time", System.nanoTime());
+    	return isTimedOut();
+}
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.shooter.upDownShooter(0);
-    	SmartDashboard.putNumber("Shooter End Time", System.nanoTime());
+    	//SmartDashboard.putNumber("Shooter End Time", System.nanoTime());
     }
 
     // Called when another command which requires one or more of the same
