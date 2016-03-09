@@ -50,7 +50,7 @@ public class Shoot extends Command {
  //   	}
     	if(mCurrentTime - mStartTime > 1500000000){
    
-    		Robot.loaderWheelSubsystem.spinLoaderWheels(1);
+    		Robot.loaderWheelSubsystem.spinLoaderWheels(.5);
     	}
     	
     }
@@ -69,5 +69,6 @@ public class Shoot extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

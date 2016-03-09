@@ -79,5 +79,6 @@ public class RotateChassis extends Command {
     }
 
     protected void interrupted() {
+    	end();
     }
 }

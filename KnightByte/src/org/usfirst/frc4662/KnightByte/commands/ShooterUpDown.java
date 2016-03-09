@@ -46,12 +46,14 @@ public class ShooterUpDown extends Command {
     	if (shooterAngle < 0) {
     		shooterAngle = 0;
     	}
+    	shooterAngle = .5;
     	return shooterAngle;
     }
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	double distance = Robot.shooterCam.GetDistance();
+    	//double distance = Robot.shooterCam.GetDistance();
+    	double distance = 1;
     	double timeout = calculateTimeout(distance);
     	//SmartDashboard.putNumber("ShooterTimeout", timeout);
     	//SmartDashboard.putNumber("Shooter Start Time", System.nanoTime());
@@ -61,7 +63,7 @@ public class ShooterUpDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.upDownShooter(.1);
+    	Robot.shooter.upDownShooter(.3);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -82,5 +84,7 @@ public class ShooterUpDown extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	
+    	end();
     }
 }

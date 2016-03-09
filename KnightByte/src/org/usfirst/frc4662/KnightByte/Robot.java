@@ -56,6 +56,7 @@ public class Robot extends IterativeRobot {
     public static double MINIMUMDISTANCE;
     public static double MAXIMUMANGLE;
     public static double MINIMUMANGLE;
+    public static boolean bIsCompetition;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -64,6 +65,7 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	RobotMap.init();
  // BEGIN CONSTRUCTORS
+    	SmartDashboard.putString("Auto Pattern File", "position1short");
         driveSubsystem = new DriveSubsystem();
         shooter = new Shooter();
         loaderWheelSubsystem = new LoaderWheelSubsystem();
@@ -109,8 +111,9 @@ public class Robot extends IterativeRobot {
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-    	String strAttackPattern = "Default Attack Pattern";  //Dynamically construct attack pattern
-    	SmartDashboard.getInt("Starting Position", startingPosition);
+    	String strAttackPattern = "position1short";  //Dynamically construct attack pattern
+//    	SmartDashboard.getInt("Starting Position", startingPosition);
+    	strAttackPattern = SmartDashboard.getString("Auto Pattern File", strAttackPattern);
     	try {
 			autonomousCommand = (Command) new AutoCommandGroup(strAttackPattern);
 		} catch (Exception e) {

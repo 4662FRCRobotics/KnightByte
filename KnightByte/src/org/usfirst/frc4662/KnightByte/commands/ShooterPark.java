@@ -44,18 +44,19 @@ public class ShooterPark extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	setTimeout(3);
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.upDownShooter(-.1);
+    	Robot.shooter.upDownShooter(-.2);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	SmartDashboard.putBoolean("Shooter Park LS", (RobotMap.ShooterPark.get() == false));
-    	return (RobotMap.ShooterPark.get() == false);
+    	return ((RobotMap.ShooterPark.get() == false) || isTimedOut());
     	
     }
 
@@ -67,5 +68,7 @@ public class ShooterPark extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	
+    	end();
     }
 }

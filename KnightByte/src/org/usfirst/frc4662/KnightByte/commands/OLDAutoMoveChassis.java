@@ -20,7 +20,7 @@ import org.usfirst.frc4662.KnightByte.Robot;
 /**
  *
  */
-public class  AutoMoveChassis extends Command {
+/*public class  OLDAutoMoveChassis extends Command {
 	
 	AutoCardinalDirections m_direction;
 	
@@ -100,3 +100,4 @@ public class  AutoMoveChassis extends Command {
     protected void interrupted() {
     }
 }
+*/

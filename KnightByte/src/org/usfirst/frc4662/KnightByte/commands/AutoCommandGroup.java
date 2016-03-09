@@ -59,6 +59,7 @@ public class AutoCommandGroup extends CommandGroup {
     	int iDistance = 0;
     	double dSpeed = 0;
     	double dWaitDuration = 0;
+    	double dAngle = 0;
     	
     	//Preferences prefs = Preferences.getInstance();
     	SmartDashboard.putString("AutoCommandGroup", "Start");
@@ -66,15 +67,41 @@ public class AutoCommandGroup extends CommandGroup {
         	String strFileName = "";
         	switch (strAttackPattern) {
    
-        	case "GetOutOfWay":
-        		strFileName = "/home/lvuser/Autonomous/AutoGetOutOfWay.txt";
+        	case "position1long":
+        		strFileName = "/home/lvuser/Autonomous/position1long.txt";
         		break;
-        	case "AutoBin1":
-        		strFileName = "/home/lvuser/Autonomous/AutoBin1.txt";
+        	case "position1medium":
+        		strFileName = "/home/lvuser/Autonomous/position1medium.txt";
+        		break;
+        		
+        	case "position1short":
+        		strFileName = "/home/lvuser/Autonomous/position1short.txt";
+        		break;
+        		
+        	case "position2long":
+        		strFileName = "/home/lvuser/Autonomous/position2long.txt";
+        		break;
+        	case "position2medium":
+        		strFileName = "/home/lvuser/Autonomous/position2medium.txt";
+        		break;
+        		
+        	case "position2short":
+        		strFileName = "/home/lvuser/Autonomous/position2short.txt";
+        		break;
+        		
+        	case "position3long":
+        		strFileName = "/home/lvuser/Autonomous/position3long.txt";
+        		break;
+        	case "position3medium":
+        		strFileName = "/home/lvuser/Autonomous/position3medium.txt";
+        		break;
+        		
+        	case "position3short":
+        		strFileName = "/home/lvuser/Autonomous/position3short.txt";
         		break;
         		
         	default:
-        		strFileName = "/home/lvuser/Autonomous/ReachDefense.txt";
+        		strFileName = "/home/lvuser/Autonomous/position1long.txt";
         	}
         	SmartDashboard.putString("AutoFile", strFileName);
         	String autoCommandList = readFile(strFileName);
@@ -96,19 +123,19 @@ public class AutoCommandGroup extends CommandGroup {
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new DriveDistance(dSpeed, iDistance, true));
-	    				//addSequential (new RotateRight90());
+	    				
 	    				break;
 	    			case "rotate":
-	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
+	    	    		dAngle = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
-	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.SOUTH, iDistance, dSpeed));
-	    				//addSequential (new RotateRight90());
+	    				addSequential (new RotateChassis(dAngle));
+	    				
 	    				break;
 	    			case "locatetarget":
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		SmartDashboard.putNumber("Distance", iDistance);
-	    				addSequential (new AutoMoveChassis(AutoCardinalDirections.EAST, iDistance, dSpeed));
-	    				//addSequential (new RotateRight90());
+	    				addSequential (new LocateTarget());
+	    				
 	    				break;
 	    			
 	    			case "wait":
