@@ -14,6 +14,8 @@ package org.usfirst.frc4662.KnightByte.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.io.IOException;
+
 import org.usfirst.frc4662.KnightByte.OI;
 import org.usfirst.frc4662.KnightByte.Robot;
 import org.usfirst.frc4662.KnightByte.RobotMap;
@@ -37,6 +39,12 @@ public class ShooterUpDown extends Command {
     
  //END VARIABLE_DECLARATIONS
     private double calculateTimeout(double dDistance){
+    	try {
+			RobotMap.readShooterAngles();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	//Calculate Timeout at later date 
     	int iIndex = (int)(dDistance);
     	if (iIndex > 30) {
@@ -46,14 +54,14 @@ public class ShooterUpDown extends Command {
     	if (shooterAngle < 0) {
     		shooterAngle = 0;
     	}
-    	shooterAngle = .5;
+//    	shooterAngle = .1;
     	return shooterAngle;
     }
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	//double distance = Robot.shooterCam.GetDistance();
-    	double distance = 1;
+    	double distance = Robot.shooterCam.GetDistance();
+   // 	double distance = 1;
     	double timeout = calculateTimeout(distance);
     	//SmartDashboard.putNumber("ShooterTimeout", timeout);
     	//SmartDashboard.putNumber("Shooter Start Time", System.nanoTime());

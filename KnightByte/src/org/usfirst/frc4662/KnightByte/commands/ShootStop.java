@@ -17,26 +17,26 @@ import org.usfirst.frc4662.KnightByte.Robot;
 /**
  *
  */
-public class Shoot extends Command {
+public class ShootStop extends Command {
 	
 //VARIABLE_DECLARATIONS
-	long mStartTime;
-	long mCurrentTime;
+//	long mStartTime;
+//	long mCurrentTime;
 	double mSpinSpeed;
 //CONSTRUCTORS
-    public Shoot() {
+    public ShootStop() {
     	
 //VARIABLE_SETTING
 
 //REQUIRES
         requires(Robot.shooter);
-        requires(Robot.loaderWheelSubsystem);
+//        requires(Robot.loaderWheelSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(3);
-    	mStartTime = System.nanoTime();
+//    	setTimeout(0);
+//    	mStartTime = System.nanoTime();
     	mSpinSpeed = .9;
     	
     }
@@ -44,26 +44,26 @@ public class Shoot extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.shooter.spinShooterWheels(mSpinSpeed);
-    	mCurrentTime = System.nanoTime();
-//      	if(mCurrentTime - mStartTime > 500000000){
-//    		mSpinSpeed = 1;
-//    	}
-      		if(mCurrentTime - mStartTime > 1500000000){
+ //   	mCurrentTime = System.nanoTime();
+ //     	if(mCurrentTime - mStartTime > 500000000){
+ //   		mSpinSpeed = 1;
+ //   	}
+ //   	if(mCurrentTime - mStartTime > 1500000000){
    
-    		Robot.loaderWheelSubsystem.spinLoaderWheels(.5);
-      	}
+  //  		Robot.loaderWheelSubsystem.spinLoaderWheels(.5);
+ //   	}
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.shooter.spinShooterWheels(0);
-    	Robot.loaderWheelSubsystem.spinLoaderWheels(0);
+//    	Robot.loaderWheelSubsystem.spinLoaderWheels(0);
     }
 
     // Called when another command which requires one or more of the same

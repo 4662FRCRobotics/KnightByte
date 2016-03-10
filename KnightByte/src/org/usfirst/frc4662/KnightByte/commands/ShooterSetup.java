@@ -28,7 +28,7 @@ public class ShooterSetup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	//addSequential(new LocateTarget());
-    	addParallel(new RotateChassis());
+    //	addParallel(new RotateChassis());
     	addParallel(new ShooterUpDown());
     	//addParallel(new LoaderArmPark());		//Need to break top three into separate command group
     	

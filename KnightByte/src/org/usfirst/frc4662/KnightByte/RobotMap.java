@@ -232,7 +232,7 @@ public class RobotMap {
     }    
     //Shooter Angle Table Read
     //dSpeed = Double.valueOf(autoArray[i + 1]);
-    private static void readShooterAngles() throws IOException {
+    public static void readShooterAngles() throws IOException {
 		BufferedReader reader = new BufferedReader( new FileReader ("/home/lvuser/ShooterAngles.txt"));
 		String	       line = null;
 		int shooterIndex = -1;

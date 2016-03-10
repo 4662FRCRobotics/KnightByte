@@ -73,7 +73,8 @@ public class OI {
         targetShoot = new JoystickButton(operatorJoystick, 1);
         targetShoot.whenPressed(new LocateTarget());
         shooterTrigger = new JoystickButton(operatorJoystick, 3);
-        shooterTrigger.whenPressed(new Shoot());
+        shooterTrigger.whileHeld(new Shoot());
+        shooterTrigger.whenReleased(new ShootStop());
         loadButton = new JoystickButton(operatorJoystick, 2);
         loadButton.whileHeld(new LoaderWheels());
         loadButton.whenReleased(new LoaderWheelStop());
