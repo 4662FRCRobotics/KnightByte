@@ -139,7 +139,7 @@ public class RobotMap {
 	        
 	        loaderLoaderArm = new VictorSP(8);
 	        LiveWindow.addActuator("Loader", "LoaderArm", (VictorSP) loaderLoaderArm);
-	        loaderLoaderArm.setInverted(true);
+//	        loaderLoaderArm.setInverted(true);
 	        
 	        rotationalGyro = new AnalogGyro(0);
 	        LiveWindow.addSensor("DriveSubsystem", "RotationalGyro)", rotationalGyro);
@@ -164,7 +164,7 @@ public class RobotMap {
 	        driveSubsystemLeftRear = new TalonSRX(2);
 	        LiveWindow.addActuator("DriveSubsystem", "LeftRear", (TalonSRX) driveSubsystemLeftRear);
 	        
-	        driveSubsystemRightRear = new TalonSRX(3);
+	        driveSubsystemRightRear = new VictorSP(3);
 	        LiveWindow.addActuator("DriveSubsystem", "RightRear", (TalonSRX) driveSubsystemRightRear);
 	        
 	        driveSubsystemRobotDrive41 = new RobotDrive(driveSubsystemLeftFront, driveSubsystemLeftRear,

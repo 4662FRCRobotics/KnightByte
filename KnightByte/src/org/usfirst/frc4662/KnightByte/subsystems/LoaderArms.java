@@ -58,8 +58,8 @@ public class LoaderArms extends Subsystem {
     }
 */
     public void moveArmInOut(Joystick operatorJoystick){
-     //double loaderArmSpeed = (operatorJoystick.getY() * (-operatorJoystick.getThrottle() + 3) * 0.25);
-    double loaderArmSpeed = (operatorJoystick.getY() * 0.5);
+    double loaderArmSpeed = (-operatorJoystick.getY() * (-operatorJoystick.getZ() + 3) * 0.25);
+//    double loaderArmSpeed = (operatorJoystick.getY() * 0.5);
      if (loaderArmSpeed > 0 && (RobotMap.LoaderPark.get() == false)) {
     	 loaderArmSpeed = 0;
      } else if (loaderArmSpeed < 0 && (RobotMap.LoaderOut.get() == false)) {

@@ -67,13 +67,15 @@ public class AutoCommandGroup extends CommandGroup {
         	String strFileName = "";
         	switch (strAttackPattern) {
    
+        	case "position1fast":
+        		strFileName = "/home/lvuser/Autonomous/position1fast.txt";
+        		break;
         	case "position1long":
         		strFileName = "/home/lvuser/Autonomous/position1long.txt";
         		break;
         	case "position1medium":
         		strFileName = "/home/lvuser/Autonomous/position1medium.txt";
         		break;
-        		
         	case "position1short":
         		strFileName = "/home/lvuser/Autonomous/position1short.txt";
         		break;
@@ -117,27 +119,31 @@ public class AutoCommandGroup extends CommandGroup {
 	    		switch (strAutoCommand) {
 	    			case "throttle":
 	    				dSpeed = Double.valueOf(autoArray[i + 1]);
-	    				SmartDashboard.putNumber("Speed", dSpeed);
+	    				//SmartDashboard.putNumber("Speed", dSpeed);
 	    				break;
 	    			case "forward": 
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
-	    	    		SmartDashboard.putNumber("Distance", iDistance);
+	    	    		//SmartDashboard.putNumber("Distance", iDistance);
+	    				addSequential (new DriveDistance(dSpeed, iDistance, false));
+	    				break;
+	    			case "reverse": 
+	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
+	    	    		//SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new DriveDistance(dSpeed, iDistance, true));
-	    				
 	    				break;
 	    			case "rotate":
 	    	    		dAngle = Integer.valueOf(autoArray[i + 1]);
-	    	    		SmartDashboard.putNumber("Distance", iDistance);
+	    	    		//SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new RotateChassis(dAngle));
-	    				
 	    				break;
 	    			case "locatetarget":
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
-	    	    		SmartDashboard.putNumber("Distance", iDistance);
+	    	    		//SmartDashboard.putNumber("Distance", iDistance);
 	    				addSequential (new LocateTarget());
-	    				
 	    				break;
-	    			
+	    			case "shoot":
+	    				addSequential (new Shoot());
+	    				break;
 	    			case "wait":
 	    				dWaitDuration = Double.valueOf(autoArray [i + 1]);
 	    				addSequential (new AutoWait(dWaitDuration));

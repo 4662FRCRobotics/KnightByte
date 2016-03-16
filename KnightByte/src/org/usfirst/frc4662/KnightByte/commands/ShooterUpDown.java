@@ -47,8 +47,10 @@ public class ShooterUpDown extends Command {
 		}
     	//Calculate Timeout at later date 
     	int iIndex = (int)(dDistance);
-    	if (iIndex > 30) {
-    		iIndex = 30;
+    	if (iIndex > 29) {
+    		iIndex = 29;
+    	} else if (iIndex<0) {
+    		iIndex = 0;
     	}
     	double shooterAngle = RobotMap.shooterAngleArray[iIndex];
     	if (shooterAngle < 0) {

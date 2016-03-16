@@ -37,7 +37,7 @@ public class ShootStop extends Command {
     protected void initialize() {
 //    	setTimeout(0);
 //    	mStartTime = System.nanoTime();
-    	mSpinSpeed = .9;
+    	mSpinSpeed = 0;
     	
     }
 

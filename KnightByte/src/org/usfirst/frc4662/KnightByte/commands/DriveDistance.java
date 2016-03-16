@@ -70,9 +70,9 @@ public class DriveDistance extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//we're finished when distance traveled >= total distance or the timeout is reached
-    SmartDashboard.putNumber("Drive distance.get Distance", Math.abs(Robot.driveSubsystem.getDistance()));
-    SmartDashboard.putBoolean("Drive Use encoder", m_bUseEncoder);
-    SmartDashboard.putNumber("Drive m_Distance", m_Distance);
+   // SmartDashboard.putNumber("Drive distance.get Distance", Math.abs(Robot.driveSubsystem.getDistance()));
+  //  SmartDashboard.putBoolean("Drive Use encoder", m_bUseEncoder);
+  //  SmartDashboard.putNumber("Drive m_Distance", m_Distance);
     	boolean bFinished = false;
     	if (m_bUseEncoder == true) {
     		bFinished = (Math.abs(Robot.driveSubsystem.getDistance()) >= m_Distance);

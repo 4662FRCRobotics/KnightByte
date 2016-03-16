@@ -54,6 +54,7 @@ public class OI {
 
     //Buttons
     public JoystickButton loadButton;
+    public JoystickButton unloadButton;
     public JoystickButton shooterTrigger;
     public Joystick operatorJoystick;
     public Joystick joystick1;
@@ -61,7 +62,10 @@ public class OI {
     public JoystickButton cameraButton;
     public JoystickButton targetToggle;
     public JoystickButton targetShoot;
-
+    public JoystickButton shooterRampUp;
+    public JoystickButton shooterPark;
+    public JoystickButton shooterStop;
+    
 
     public OI() {
  // BEGIN CONSTRUCTORS
@@ -72,15 +76,24 @@ public class OI {
         
         targetShoot = new JoystickButton(operatorJoystick, 1);
         targetShoot.whenPressed(new LocateTarget());
-        shooterTrigger = new JoystickButton(operatorJoystick, 3);
+        shooterTrigger = new JoystickButton(operatorJoystick, 2);
         shooterTrigger.whileHeld(new Shoot());
-        shooterTrigger.whenReleased(new ShootStop());
-        loadButton = new JoystickButton(operatorJoystick, 2);
-        loadButton.whileHeld(new LoaderWheels());
+        shooterStop = new JoystickButton(operatorJoystick, 2);
+        shooterStop.whenReleased(new ShootStop());
+//        shooterTrigger.whenReleased(new ShootStop());
+        shooterRampUp = new JoystickButton(operatorJoystick, 6);
+        shooterRampUp.whenPressed(new ShooterUpDownNoCam());
+        shooterPark = new JoystickButton (operatorJoystick, 7);
+        shooterPark.whenPressed(new ShooterPark());
+        loadButton = new JoystickButton(operatorJoystick, 3);
+        loadButton.whileHeld(new LoaderWheels(0.8));
         loadButton.whenReleased(new LoaderWheelStop());
-        cameraButton = new JoystickButton(operatorJoystick, 7);
+        unloadButton = new JoystickButton(operatorJoystick, 5);
+        unloadButton.whileHeld(new LoaderWheels(-0.8));
+        unloadButton.whenReleased(new LoaderWheelStop());
+        cameraButton = new JoystickButton(operatorJoystick, 11);
         cameraButton.whenPressed(new CameraToggle());
-        targetToggle = new JoystickButton(operatorJoystick, 8);
+        targetToggle = new JoystickButton(operatorJoystick, 10);
         targetToggle.whenPressed(new TargetToggle());
 
         // SmartDashboard Buttons
