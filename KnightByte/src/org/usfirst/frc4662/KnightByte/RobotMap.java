@@ -53,7 +53,9 @@ public class RobotMap {
     public static DigitalInput ShooterPark;
     public static DigitalInput ShooterTop;
     public static DigitalInput LoaderPark;
+    public static DigitalInput LoaderLaunch;
     public static DigitalInput LoaderOut;
+    public static DigitalInput BallLaunch;
 
 
     public static Image cameraFrame;
@@ -152,6 +154,8 @@ public class RobotMap {
 	        ShooterTop = new DigitalInput (4);
 	        LoaderPark = new DigitalInput (5);
 	        LoaderOut = new DigitalInput (6);
+	        LoaderLaunch = new DigitalInput (7);
+	        BallLaunch = new DigitalInput (8);
 	        shooterAngleArray = new double[30];
 	        
 	    } else {
@@ -204,6 +208,8 @@ public class RobotMap {
 	        ShooterTop = new DigitalInput (4);
 	        LoaderPark = new DigitalInput (5);
 	        LoaderOut = new DigitalInput (6);
+	        LoaderLaunch = new DigitalInput (7);
+	        BallLaunch = new DigitalInput (8);
 	        shooterAngleArray = new double[30];
 	    	
 	    }

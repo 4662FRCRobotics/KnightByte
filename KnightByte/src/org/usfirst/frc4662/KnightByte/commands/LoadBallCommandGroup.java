@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 /**
  *
  */
-public class ShooterSetup extends CommandGroup {
+public class LoadBallCommandGroup extends CommandGroup {
     
-    public  ShooterSetup() {
+    public  LoadBallCommandGroup() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -28,9 +28,11 @@ public class ShooterSetup extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	//addSequential(new LocateTarget());
-    //	addParallel(new RotateChassis());
-    	addParallel(new ShooterUpDown());
-    	addParallel(new LoaderArmLaunch());		//Need to break top three into separate command group
     	
+    	//addSequential(new RotateChassis());
+    	//addSequential(new ShooterUpDown());
+    	//addSequential(new LoaderArmPark());		//Need to break top three into separate command group
+    	addParallel(new LoaderArmLaunch());
+    	addParallel(new LoaderWheelLaunch(0.8));
     	}
 }

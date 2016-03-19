@@ -65,6 +65,9 @@ public class OI {
     public JoystickButton shooterRampUp;
     public JoystickButton shooterPark;
     public JoystickButton shooterStop;
+    public JoystickButton LoaderArmLaunch;
+    public JoystickButton LoaderArmPark;
+    public JoystickButton LoadBall;
     
 
     public OI() {
@@ -95,6 +98,10 @@ public class OI {
         cameraButton.whenPressed(new CameraToggle());
         targetToggle = new JoystickButton(operatorJoystick, 10);
         targetToggle.whenPressed(new TargetToggle());
+        LoadBall = new JoystickButton(operatorJoystick, 8);
+        LoadBall.whenPressed(new LoadBallCommandGroup());
+        LoaderArmLaunch = new JoystickButton(operatorJoystick, 9);
+        LoaderArmLaunch.whenPressed(new LoaderArmLaunch());
 
         // SmartDashboard Buttons
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
@@ -105,6 +112,9 @@ public class OI {
         SmartDashboard.putData("ShootingCommandGroup", new ShootingCommandGroup());
         SmartDashboard.putData("Rotate Chassis", new RotateChassis(10));
         SmartDashboard.putData("Shooter Move to Top", new ShooterUpDown());
+        SmartDashboard.putData("Loader Arm Park", new LoaderArmPark());
+        SmartDashboard.putData("Loader Arm Launch", new LoaderArmLaunch());
+        SmartDashboard.putData("Loader Wheel Launch", new LoaderWheelLaunch(0.8));
         
 
  
