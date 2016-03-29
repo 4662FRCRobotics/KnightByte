@@ -29,8 +29,9 @@ public class ShooterSetup extends CommandGroup {
         // arm.
     	//addSequential(new LocateTarget());
     //	addParallel(new RotateChassis());
-    	addParallel(new ShooterUpDown());
-    	addParallel(new LoaderArmLaunch());		//Need to break top three into separate command group
+ //   	addParallel(new ShooterUpDown());
+    	addParallel(new LoaderArmLaunch());
+    	addParallel(new LoaderWheelLaunch(.9));
     	
     	}
 }

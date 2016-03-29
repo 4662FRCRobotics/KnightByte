@@ -127,19 +127,21 @@ public class RobotMap {
 	        
 	        shooterLeftShooterMotor = new VictorSP(4);
 	        LiveWindow.addActuator("Shooter", "LeftShooterMotor", (VictorSP) shooterLeftShooterMotor);
+	        shooterLeftShooterMotor.setInverted(true);
 	        
 	        shooterRightShooterMotor = new VictorSP(5);
 	        LiveWindow.addActuator("Shooter", "RightShooterMotor", (VictorSP) shooterRightShooterMotor);
+	        shooterRightShooterMotor.setInverted(true);
 	        
 	        shooterAngleMotor = new TalonSRX(6);
 	        LiveWindow.addActuator("Shooter", "ShooterAngleMotor", (TalonSRX) shooterAngleMotor);
 //	        shooterAngleMotor.setInverted(true);
 	        
-	        loaderLoaderWheels = new VictorSP(7);
+	        loaderLoaderWheels = new VictorSP(8);
 	        LiveWindow.addActuator("Loader", "LoaderWheels", (VictorSP) loaderLoaderWheels);
 //	        loaderLoaderWheels.setInverted(true);
 	        
-	        loaderLoaderArm = new VictorSP(8);
+	        loaderLoaderArm = new VictorSP(7);
 	        LiveWindow.addActuator("Loader", "LoaderArm", (VictorSP) loaderLoaderArm);
 //	        loaderLoaderArm.setInverted(true);
 	        
@@ -150,12 +152,12 @@ public class RobotMap {
 	        driveEncoder = new Encoder(1,0);
 	        driveEncoder.setDistancePerPulse(8 * Math.PI/2048);
 	        driveEncoder.setReverseDirection(true);
-	        ShooterPark = new DigitalInput (3); 
-	        ShooterTop = new DigitalInput (4);
+	        ShooterPark = new DigitalInput (6); //used to be 3
+	        ShooterTop = new DigitalInput (7); //used to be 4
 	        LoaderPark = new DigitalInput (5);
-	        LoaderOut = new DigitalInput (6);
-	        LoaderLaunch = new DigitalInput (7);
-	        BallLaunch = new DigitalInput (8);
+	        LoaderOut = new DigitalInput (3);
+	        LoaderLaunch = new DigitalInput (4);
+	        BallLaunch = new DigitalInput (2);
 	        shooterAngleArray = new double[30];
 	        
 	    } else {

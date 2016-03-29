@@ -35,7 +35,7 @@ public class Shoot extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(8);				//Changed timeout to allow shooter wheels to shoot ball while at full speed
+    	setTimeout(3);				//Changed timeout to allow shooter wheels to shoot ball while at full speed
     	mStartTime = System.nanoTime();
     	mSpinSpeed = .9;
     	

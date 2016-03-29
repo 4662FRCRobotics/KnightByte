@@ -34,6 +34,6 @@ public class ShootingCommandGroup extends CommandGroup {
     	//addSequential(new LoaderArmPark());		//Need to break top three into separate command group
     	addSequential(new ShooterSetup());
     	addSequential(new Shoot());
-    	addSequential(new ShooterPark());
+ //   	addSequential(new ShooterPark());
     	}
 }

@@ -23,8 +23,8 @@ import org.usfirst.frc4662.KnightByte.RobotMap;
 /**
  *
  */
-public class ShooterUpDown extends Command {
-	
+//public class ShooterUpDown extends Command {
+/*	
 
  
     public ShooterUpDown() {
@@ -98,3 +98,4 @@ public class ShooterUpDown extends Command {
     	end();
     }
 }
+*/

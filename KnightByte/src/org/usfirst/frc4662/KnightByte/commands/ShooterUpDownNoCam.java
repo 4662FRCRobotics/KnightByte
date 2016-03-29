@@ -23,7 +23,7 @@ import org.usfirst.frc4662.KnightByte.RobotMap;
 /**
  *
  */
-public class ShooterUpDownNoCam extends Command {
+/*public class ShooterUpDownNoCam extends Command {
 	
 
  
@@ -39,14 +39,14 @@ public class ShooterUpDownNoCam extends Command {
     
  //END VARIABLE_DECLARATIONS
  //   private double calculateTimeout(double dDistance){
- /*   	try {
+    	try {
 			RobotMap.readShooterAngles();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-*/    	//Calculate Timeout at later date 
-/*    	int iIndex = (int)(dDistance);
+    	//Calculate Timeout at later date 
+    	int iIndex = (int)(dDistance);
     	if (iIndex > 29) {
     		iIndex = 29;
     	} else if (iIndex<0) {
@@ -56,7 +56,7 @@ public class ShooterUpDownNoCam extends Command {
     	if (shooterAngle < 0) {
     		shooterAngle = 0;
     	}
-*///    	shooterAngle = .1;
+//    	shooterAngle = .1;
   //  	return shooterAngle;
   //  }
     // Called just before this Command runs the first time
@@ -98,3 +98,4 @@ public class ShooterUpDownNoCam extends Command {
     	end();
     }
 }
+*/

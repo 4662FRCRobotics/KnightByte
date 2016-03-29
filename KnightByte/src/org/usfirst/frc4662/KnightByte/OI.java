@@ -65,7 +65,7 @@ public class OI {
     public JoystickButton shooterRampUp;
     public JoystickButton shooterPark;
     public JoystickButton shooterStop;
-    public JoystickButton LoaderArmLaunch;
+    public JoystickButton Shoot;
     public JoystickButton LoaderArmPark;
     public JoystickButton LoadBall;
     
@@ -80,14 +80,14 @@ public class OI {
         targetShoot = new JoystickButton(operatorJoystick, 1);
         targetShoot.whenPressed(new LocateTarget());
         shooterTrigger = new JoystickButton(operatorJoystick, 2);
-        shooterTrigger.whileHeld(new Shoot());
+        shooterTrigger.whileHeld(new ShootPressed());
         shooterStop = new JoystickButton(operatorJoystick, 2);
         shooterStop.whenReleased(new ShootStop());
 //        shooterTrigger.whenReleased(new ShootStop());
         shooterRampUp = new JoystickButton(operatorJoystick, 6);
-        shooterRampUp.whenPressed(new ShooterUpDownNoCam());
-        shooterPark = new JoystickButton (operatorJoystick, 7);
-        shooterPark.whenPressed(new ShooterPark());
+//        shooterRampUp.whenPressed(new ShooterUpDownNoCam());
+//        shooterPark = new JoystickButton (operatorJoystick, 7);
+//        shooterPark.whenPressed(new ShooterPark());
         loadButton = new JoystickButton(operatorJoystick, 3);
         loadButton.whileHeld(new LoaderWheels(0.8));
         loadButton.whenReleased(new LoaderWheelStop());
@@ -98,20 +98,20 @@ public class OI {
         cameraButton.whenPressed(new CameraToggle());
         targetToggle = new JoystickButton(operatorJoystick, 10);
         targetToggle.whenPressed(new TargetToggle());
-        LoadBall = new JoystickButton(operatorJoystick, 8);
+        LoadBall = new JoystickButton(operatorJoystick, 6);
         LoadBall.whenPressed(new LoadBallCommandGroup());
-        LoaderArmLaunch = new JoystickButton(operatorJoystick, 9);
-        LoaderArmLaunch.whenPressed(new LoaderArmLaunch());
+        Shoot = new JoystickButton(operatorJoystick, 7);
+        Shoot.whenPressed(new Shoot());
 
-        // SmartDashboard Buttons
+        // SmartDashboard Buttons 
         SmartDashboard.putData("Autonomous Command", new AutonomousCommand());
         SmartDashboard.putData("Shoot", new Shoot());
         SmartDashboard.putData("LocateTarget", new LocateTarget());
-        SmartDashboard.putData("ShooterUpDown", new ShooterUpDown());
-        SmartDashboard.putData("ShooterPark", new ShooterPark());
+       // SmartDashboard.putData("ShooterUpDown", new ShooterUpDown());
+       // SmartDashboard.putData("ShooterPark", new ShooterPark());
         SmartDashboard.putData("ShootingCommandGroup", new ShootingCommandGroup());
         SmartDashboard.putData("Rotate Chassis", new RotateChassis(10));
-        SmartDashboard.putData("Shooter Move to Top", new ShooterUpDown());
+       // SmartDashboard.putData("Shooter Move to Top", new ShooterUpDown());
         SmartDashboard.putData("Loader Arm Park", new LoaderArmPark());
         SmartDashboard.putData("Loader Arm Launch", new LoaderArmLaunch());
         SmartDashboard.putData("Loader Wheel Launch", new LoaderWheelLaunch(0.8));
