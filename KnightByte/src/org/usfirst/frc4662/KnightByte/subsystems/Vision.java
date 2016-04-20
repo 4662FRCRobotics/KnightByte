@@ -21,13 +21,17 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.usfirst.frc4662.KnightByte.RobotMap;
 //import org.usfirst.frc.team4662.robot.Robot.Scores;
 import org.usfirst.frc4662.KnightByte.subsystems.Vision.ParticleReport;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.VisionException;
+import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
 import com.ni.vision.NIVision.ImageType;
+import com.ni.vision.NIVision.Rect;
+import com.ni.vision.NIVision.ShapeMode;
 
 import static edu.wpi.first.wpilibj.Timer.delay;
 
@@ -49,7 +53,7 @@ public class Vision extends Subsystem {
 	  private static String ATTR_EX_VALUE = "CameraAttributes::Exposure::Value";
 	  private static String ATTR_BR_MODE = "CameraAttributes::Brightness::Mode";
 	  private static String ATTR_BR_VALUE = "CameraAttributes::Brightness::Value";
-
+//	  public static Rect cameraRect = new NIVision.Rect(80, 135, 50, 50);
 	  public class WhiteBalance {
 		    public static final int kFixedIndoor = 3000;
 		    public static final int kFixedOutdoor1 = 4000;
@@ -250,6 +254,10 @@ public class Vision extends Subsystem {
     public Image getImage() {
          NIVision.IMAQdxGrab(m_id, m_frame, 1);
          
+ /*        if (m_targetMode){
+         	NIVision.imaqDrawShapeOnImage(RobotMap.cameraFrame, RobotMap.cameraFrame, cameraRect, DrawMode.PAINT_INVERT, ShapeMode.SHAPE_RECT, 0.0f);
+         } 
+ */
 //         if (m_targetMode){
 //        	 FilterImage(20, 12, 240, 80);
 //         }

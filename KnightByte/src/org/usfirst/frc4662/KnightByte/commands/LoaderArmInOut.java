@@ -12,6 +12,7 @@
 package org.usfirst.frc4662.KnightByte.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc4662.KnightByte.OI;
 import org.usfirst.frc4662.KnightByte.Robot;
@@ -46,6 +47,10 @@ public class LoaderArmInOut extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.loaderArms.moveArmInOut(Robot.oi.operatorJoystick);
+    	
+    	 SmartDashboard.putData("Loader Out", RobotMap.LoaderOut);
+	     SmartDashboard.putData("Loader Park", RobotMap.LoaderPark);
+	     SmartDashboard.putData("Ball Launch", RobotMap.BallLaunch);
     }
 
     // Make this return true when this Command no longer needs to run execute()

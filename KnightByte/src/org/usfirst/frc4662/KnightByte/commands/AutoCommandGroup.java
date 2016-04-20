@@ -102,6 +102,9 @@ public class AutoCommandGroup extends CommandGroup {
         		strFileName = "/home/lvuser/Autonomous/position3short.txt";
         		break;
         		
+        	case "position1mediumshoot":
+        		strFileName = "/home/lvuser/Autonomous/position1mediumshoot.txt";
+        		break;
         	default:
         		strFileName = "/home/lvuser/Autonomous/position1long.txt";
         	}
@@ -124,12 +127,12 @@ public class AutoCommandGroup extends CommandGroup {
 	    			case "forward": 
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		//SmartDashboard.putNumber("Distance", iDistance);
-	    				addSequential (new DriveDistance(dSpeed, iDistance, false));
+	    				addSequential (new DriveDistance(-dSpeed, iDistance, true));
 	    				break;
 	    			case "reverse": 
 	    	    		iDistance = Integer.valueOf(autoArray[i + 1]);
 	    	    		//SmartDashboard.putNumber("Distance", iDistance);
-	    				addSequential (new DriveDistance(dSpeed, iDistance, true));
+	    				addSequential (new DriveDistance(dSpeed, iDistance, false));
 	    				break;
 	    			case "rotate":
 	    	    		dAngle = Integer.valueOf(autoArray[i + 1]);

@@ -34,10 +34,10 @@ public class DriveDistance extends Command {
     	//validation below as appropriate
     	//if greater than 1 or less than -1 then make speed 1
     	//if less than 0 and greater than -1 then multiply by -1
-    	if (speed > 1 || speed < -1) {
+    	if (speed > 1) {
     		m_Speed = 1;
-    	} else if (speed < 0 && speed >= -1) {
-    		m_Speed = speed * -1;
+    	} else if (speed < -1) {
+    		m_Speed = -1;
     	} else {
     		m_Speed = speed;
     	}

@@ -152,14 +152,13 @@ public class RobotMap {
 	        driveEncoder = new Encoder(1,0);
 	        driveEncoder.setDistancePerPulse(8 * Math.PI/2048);
 	        driveEncoder.setReverseDirection(true);
-	        ShooterPark = new DigitalInput (6); //used to be 3
-	        ShooterTop = new DigitalInput (7); //used to be 4
-	        LoaderPark = new DigitalInput (5);
+//	        ShooterPark = new DigitalInput (6); //used to be 3
+//	        ShooterTop = new DigitalInput (7); //used to be 4
+	        LoaderPark = new DigitalInput (4);
 	        LoaderOut = new DigitalInput (3);
-	        LoaderLaunch = new DigitalInput (4);
+//	        LoaderLaunch = new DigitalInput ();
 	        BallLaunch = new DigitalInput (2);
 	        shooterAngleArray = new double[30];
-	        
 	    } else {
 	    	driveSubsystemLeftFront = new TalonSRX(0);
 	        LiveWindow.addActuator("DriveSubsystem", "LeftFront", (TalonSRX) driveSubsystemLeftFront);

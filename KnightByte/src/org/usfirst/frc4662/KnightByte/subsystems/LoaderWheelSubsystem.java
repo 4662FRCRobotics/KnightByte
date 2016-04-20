@@ -50,9 +50,7 @@ public class LoaderWheelSubsystem extends Subsystem {
     }
     // Spin loader wheels
     public void spinLoaderWheels(double speed){
-    	
     	RobotMap.loaderLoaderWheels.set(speed);
-    	
     }
  /*public void moveArmInOut(Joystick operatorJoystick){
      double loaderArmSpeed = (operatorJoystick.getY() * 0.65);
